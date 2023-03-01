@@ -43,16 +43,19 @@ public class driveWithJoystick extends CommandBase{
   public void initialize() {}
   @Override
   public void execute() {
+    XJoystick = RobotContainer.joystickX;
+    YJoystick = RobotContainer.joystickY;
+    
   
-    speed =  -XJoystick+  YJoystick;
-    turnRate = -XJoystick; 
+    speed =   -YJoystick;
+    turnRate = -XJoystick;
 
-      if(Math.abs(XJoystick) < Constants.turnDeadBand) {
+      if(Math.abs(turnRate) < Constants.turnDeadBand) {
         turnRate = 0;
-      } else if (XJoystick < 0) {
-        turnRate = (XJoystick * XJoystick) * 0.75 + 0.25;
+      } else if (turnRate < 0) {
+        turnRate = (turnRate * turnRate) * 0.85 + 0.15;
       } else {
-        turnRate = -  XJoystick * XJoystick * 0.75 - 0.25;
+        turnRate = -  XJoystick * XJoystick * 0.85 - 0.15;
       }
 
       if(Math.abs(speed) < Constants.speedDeadBand){
@@ -63,7 +66,7 @@ public class driveWithJoystick extends CommandBase{
           speed = - speed * speed * 0.75 - 0.25;
         }
       
-      driveTrain.turnDrive(speed, turnRate/2 );
+      driveTrain.turnDrive(-speed/2, turnRate );
 
   }// end of execute
 

@@ -49,8 +49,8 @@ public final class Constants {
         leftWingRetract = 2,
         leftWingExtend = 3,
 
-        rightWingRetract = 6,
-        rightWingExtend = 7,
+        rightWingRetract = 7,
+        rightWingExtend = 6,
 
         armConeRetract = 1,
         armConeExtend = 0
