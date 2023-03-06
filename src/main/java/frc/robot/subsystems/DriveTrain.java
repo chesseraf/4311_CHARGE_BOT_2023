@@ -4,12 +4,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class DriveTrain extends SubsystemBase{
     public DriveTrain() {
@@ -27,7 +28,6 @@ public class DriveTrain extends SubsystemBase{
     private final WPI_TalonFX backLeftMotor = new WPI_TalonFX(Constants.ports.backLeft);
     private final WPI_TalonFX backRightMotor = new WPI_TalonFX(Constants.ports.backRight);
 
-
     private final MotorControllerGroup leftSpeedGroup = new MotorControllerGroup(frontLeftMotor, backLeftMotor);
     private final MotorControllerGroup rightSpeedGroup = new MotorControllerGroup(frontRightMotor, backRightMotor);
 
@@ -35,11 +35,6 @@ public class DriveTrain extends SubsystemBase{
 
     private final boolean breaksOn = true;
 
-    public void smartBoardUpdate(Gyro gyro){
-      SmartDashboard.putNumber("gyro angle ", gyro.getAngle());
-      SmartDashboard.putNumber("gyro rate ", gyro.getRate());
-      SmartDashboard.putBoolean("piston extended ",RobotContainer.wingsInside);
-  }
   public void turnDrive(double forwardPercent, double rotationPercent) {
     drive.arcadeDrive(forwardPercent, rotationPercent);
   }

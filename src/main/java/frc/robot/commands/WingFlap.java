@@ -6,7 +6,10 @@ import frc.robot.subsystems.Wings;
 
 public class WingFlap extends CommandBase{
     private Wings wings;
-    private boolean flapping;
+    private boolean flappingBoth;
+    private boolean flappingRight;
+    private boolean flappingLeft;
+    
     
     public WingFlap(Wings Wings){
         wings = Wings;
@@ -14,25 +17,39 @@ public class WingFlap extends CommandBase{
     }
     @Override
     public void initialize() {
-        flapping = false;
+        flappingBoth = false;
     }
     @Override
     public void execute() {
-        if(!flapping){
-            //not flapping 
-            if(RobotContainer.wingFlapButton){
+        /* flap both
+        if(RobotContainer.wingFlapButton){
+            if(!flappingBoth){
                 wings.WingSwitch();
-                flapping = true;
-            } else {
-                flapping = false;
             }
+            flappingBoth=true;
         } else {
-            //if flapping
-            if(RobotContainer.wingFlapButton){
-                flapping = true;
-            } else {
-                flapping = false;
+            flappingBoth=false;
+        } 
+        */
+       
+        //flap left
+        if(RobotContainer.leftWingFlapButton){
+            if(!flappingLeft){
+                wings.LeftWingSwitch();
             }
+            flappingLeft=true;
+        } else {
+            flappingLeft=false;
+        }
+        
+        //flap right
+        if(RobotContainer.rightWingFlapButton){
+            if(!flappingRight){
+                wings.RightWingSwitch();
+            }
+            flappingRight=true;
+        } else {
+            flappingRight=false;
         }
     }
     @Override 

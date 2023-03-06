@@ -1,9 +1,7 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -14,26 +12,11 @@ public class driveWithJoystick extends CommandBase{
   //public static double slowDown;
   private final DriveTrain driveTrain;
 
-  private double leftWheels = 0;
-  private double rightWheels = 0;
-
   private double XJoystick;
   private double YJoystick;
 
   private double speed;
   private double turnRate;
-
-  public static double LRfix(double LR){
-  // double fin = LR;
-    if(Math.abs(LR)<Constants.LRdeadband){
-      return(0);
-    } else if(LR>0){
-      return(LR * LR * (1-Constants.minPower) + Constants.minPower);
-    } else{
-      return(-LR * LR * (1 - Constants.minPower) - Constants.minPower);
-    }
-  }
- 
 
   public driveWithJoystick(DriveTrain DriveTrain, Wings wings, Gyro gyro) {
     driveTrain = DriveTrain;
@@ -53,20 +36,20 @@ public class driveWithJoystick extends CommandBase{
       if(Math.abs(turnRate) < Constants.turnDeadBand) {
         turnRate = 0;
       } else if (turnRate < 0) {
-        turnRate = (turnRate * turnRate) * 0.85 + 0.15;
+        turnRate = (turnRate * turnRate) * (1-Constants.MIN_TURN) + Constants.MIN_TURN;
       } else {
-        turnRate = -  XJoystick * XJoystick * 0.85 - 0.15;
+        turnRate = -  XJoystick * XJoystick * (1-Constants.MIN_TURN) - Constants.MIN_TURN;
       }
 
       if(Math.abs(speed) < Constants.speedDeadBand){
         speed = 0;
         } else if ( speed > 0){
-          speed = speed * speed * 0.75 + 0.25;
+          speed = speed * speed * (1-Constants.MIN_POWER) + Constants.MIN_POWER;
         } else {
-          speed = - speed * speed * 0.75 - 0.25;
+          speed = - speed * speed * (1-Constants.MIN_POWER) - Constants.MIN_POWER;
         }
       
-      driveTrain.turnDrive(-speed/2, turnRate );
+      driveTrain.turnDrive(speed, turnRate );
 
   }// end of execute
 

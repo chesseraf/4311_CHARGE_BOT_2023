@@ -9,6 +9,7 @@ import frc.robot.subsystems.DriveTrain;
 public class balanceDrive extends CommandBase {
   DriveTrain driveTrain;
   Gyro gyro;
+  boolean movingForward;
     public balanceDrive(DriveTrain DriveTrain, Gyro Gyro) {
         gyro = Gyro;
         driveTrain = DriveTrain;
@@ -33,6 +34,16 @@ public class balanceDrive extends CommandBase {
       }
     
       private double gyroDrive(double angle, double rate) {
+        if(Math.abs(angle)>Constants.MIN_GYRO_MOVE){
+          if(angle>0){
+            return(Constants.MIN_BALANCE_MOVE);
+          }else{
+            return(-Constants.MIN_BALANCE_MOVE);
+          }
+        } else {
+          return 0;
+        }
+        /* 
         if(angle > 0.5 && rate > 0.1){
 
         } else if(angle < -0.5 && rate > 0.1){
@@ -42,7 +53,7 @@ public class balanceDrive extends CommandBase {
         } else if(angle < -0.5 && rate < -0.1){
 
         }
-        return 0;
+        */
         //return(angle/10);
       }
 

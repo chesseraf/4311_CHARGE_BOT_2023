@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import javax.sound.midi.SysexMessage;
-
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -26,60 +23,36 @@ public class Robot extends TimedRobot {
 
   private RobotContainer robotContainer;
 
-  private Command autoCommand;
-  private Command  teleopCommand;
+    private  Command armCommand=robotContainer.GetArmCommand();
+    private  Command autoBalanceCommand=robotContainer.GetAutoBalanceCommand();
+    private  Command autoPlaceCommand=robotContainer.GetAutoPlaceCommand();
+    private Command balanceDriveCommand=robotContainer.GetBalanceDriveCommand();
+    private  Command teleopCommand=robotContainer.GetTeleopCommand();
+    private  Command putConeCommand=robotContainer.GetPutConeCommand();
+    private Command wingFlapCommand=robotContainer.GetWingFlapCommand();
 
   //auto chooser
   private static final String balanceAuto = "Default";
   private static final String placeAuto = "My Auto";
   private String autoChosen;
   private final SendableChooser<String> autoChoice = new SendableChooser<>();
-  //private final Command teleop;
 
-// public Compressor comp;
- public static DoubleSolenoid leftWing;
- public static DoubleSolenoid rightWing;
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
   @Override
   public void robotInit() {
+    final double calibratedGyro =robotContainer.GYRO.getAngle();
     robotContainer = new RobotContainer();
 
     autoChoice.setDefaultOption("balance", balanceAuto);
     autoChoice.addOption("place", placeAuto);
     SmartDashboard.putData("Auto choices", autoChoice);
-    System.out.println("enabling comp robot");
-    //robotContainer.comp.enableDigital();
-    System.out.print("line 72 comp");
   }
 
-
-  /**
-   * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
-   * that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
-   */
   @Override
   public void robotPeriodic() {
-    //comp.enableDigital();
-    robotContainer.updateJoystick();
+    robotContainer.UpdateJoystick();
     CommandScheduler.getInstance().run();
   }
 
-  /**
-   * This autonomous (along with the chooser code above) shows how to select between different
-   * autonomous modes using the dashboard. The sendable chooser code works with the Java
-   * SmartDashboard. If you prefer the LabVIEW Dashboard, remove all of the chooser code and
-   * uncomment the getString line to get the auto name from the text box below the Gyro
-   *
-   * <p>You can add additional auto modes by adding additional comparisons to the switch structure
-   * below with additional strings. If using the SendableChooser make sure to add them to the
-   * chooser code above as well.
-   */
   @Override
   public void autonomousInit() {
     autoChosen = autoChoice.getSelected();
@@ -98,25 +71,22 @@ public class Robot extends TimedRobot {
 
         break;
     }   
-     autoCommand = robotContainer.getAutoCommand();
-     autoCommand.schedule();
+    
   }
 
-  /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {}
-  
-
-  /** This function is called once when teleop is enabled. */
-  
+    
   @Override
   public void teleopInit() {
-    robotContainer.flaperCommand.schedule();
-    teleopCommand = robotContainer.getTeleopCommand();
     teleopCommand.schedule();
+    
+
+    wingFlapCommand.schedule();
+
+
   }
 
-  /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
    // System.out.println("get rate " + gyro.getRate());
@@ -124,11 +94,9 @@ public class Robot extends TimedRobot {
 
   }
 
-  /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {}
 
-  /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {}
 
@@ -143,12 +111,12 @@ public class Robot extends TimedRobot {
 
     //check number of each button
     
-    /*  for(int i=0; i<20; i++){
-         if(thrustMaster.getRawButton(i)){
+      for(int i=0; i<20; i++){
+        if(RobotContainer.THRUSTMASTER.getRawButton(i)){
           System.out.println("button" + i);
         }
       }      
- */   //check gyroValues when gyroButton pressed
+    //check gyroValues when gyroButton pressed
   }
 
   /** This function is called once when the robot is first started up. */

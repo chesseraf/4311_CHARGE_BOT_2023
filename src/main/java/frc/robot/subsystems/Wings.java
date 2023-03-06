@@ -7,19 +7,53 @@ public class Wings extends SubsystemBase {
     private DoubleSolenoid leftWing;
     private DoubleSolenoid rightWing;
     private boolean wingsOut=false;
+    private boolean leftWingOut=false;
+    private boolean rightWingOut=false;
     public Wings(DoubleSolenoid LeftWing, DoubleSolenoid RightWing){
         wingsOut = false;
         leftWing = LeftWing;
         rightWing = RightWing;
     }
-    public void WingsIn(){
+    public void LeftWingIn(){
         leftWing.set(DoubleSolenoid.Value.kForward);
+        leftWingOut=false;
+    }
+    public void LeftWingOut(){
+        leftWing.set(DoubleSolenoid.Value.kReverse);
+        leftWingOut=true;
+    }
+    public void LeftWingSwitch(){
+        if(leftWingOut){
+            LeftWingIn();
+        } else {
+            LeftWingOut();
+        }
+    }
+
+    public void RightWingIn(){
         rightWing.set(DoubleSolenoid.Value.kForward);
+        rightWingOut=false;
+    }
+    public void RightWingOut(){
+        rightWing.set(DoubleSolenoid.Value.kReverse);
+        rightWingOut=true;
+    }    
+    public void RightWingSwitch(){
+        if(rightWingOut){
+            RightWingIn();
+        } else {
+            RightWingIn();
+        }
+    }
+
+    public void WingsIn(){
+        RightWingIn();
+        LeftWingIn();
         wingsOut = false;
     }
     public void WingsOut(){
-        leftWing.set(DoubleSolenoid.Value.kReverse);
-        rightWing.set(DoubleSolenoid.Value.kReverse);
+        LeftWingOut();
+        RightWingOut();
         wingsOut = true;
     }
     public void WingSwitch(){
