@@ -6,7 +6,7 @@ import frc.robot.subsystems.Wings;
 
 public class WingFlap extends CommandBase{
     private Wings wings;
-    private boolean flappingBoth;
+    //private boolean flappingBoth;
     private boolean flappingRight;
     private boolean flappingLeft;
     
@@ -17,7 +17,9 @@ public class WingFlap extends CommandBase{
     }
     @Override
     public void initialize() {
-        flappingBoth = false;
+        flappingLeft = false;
+        flappingRight = false;
+        //flappingBoth = false;
     }
     @Override
     public void execute() {

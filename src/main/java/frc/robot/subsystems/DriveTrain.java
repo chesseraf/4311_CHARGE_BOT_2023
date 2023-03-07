@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class DriveTrain extends SubsystemBase{
     public DriveTrain() {
@@ -33,7 +30,7 @@ public class DriveTrain extends SubsystemBase{
 
     private final DifferentialDrive drive = new DifferentialDrive(leftSpeedGroup, rightSpeedGroup);
 
-    private final boolean breaksOn = true;
+   // private final boolean breaksOn = true;
 
   public void turnDrive(double forwardPercent, double rotationPercent) {
     drive.arcadeDrive(forwardPercent, rotationPercent);
@@ -54,6 +51,9 @@ public class DriveTrain extends SubsystemBase{
       frontRightMotor.setNeutralMode(NeutralMode.Brake);
       backLeftMotor.setNeutralMode(NeutralMode.Brake);
       backRightMotor.setNeutralMode(NeutralMode.Brake);
+    }
+    public void stop(){
+      drive.arcadeDrive(0, 0);
     }
 
 

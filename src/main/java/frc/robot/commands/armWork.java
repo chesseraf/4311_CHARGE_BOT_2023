@@ -19,10 +19,11 @@ public class armWork extends CommandBase{
         if(RobotContainer.armInButton){
             System.out.println("moving arm inside");
             arm.ReachIn();
-        }
-        if(RobotContainer.armOutButton){
+        } else if(RobotContainer.armOutButton){
             System.out.println("moving are out");
             arm.ReachOut();
+        } else{
+            arm.stop();
         }
     }
 }

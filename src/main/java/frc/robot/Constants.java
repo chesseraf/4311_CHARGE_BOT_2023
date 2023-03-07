@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.commands.putCone;
-
 public final class Constants {
 
     // PS4 Constants
@@ -51,6 +49,8 @@ public final class Constants {
     public static final double MIN_GYRO_MOVE = 0.05;
     public static final double MIN_BALANCE_MOVE = 0.15;
 
+    public static final double ARM_SPEED = 0.2;
+
     // buttons numbers
     public static class buttons{
         public static final int 
@@ -58,9 +58,9 @@ public final class Constants {
         //lowerPiston = 1,
         exitBalanceDrive = 5,
         flapWings = 1,
-        flapRight = 2,
+        flapRight = 4,
         flapLeft = 3,
-        armIn = 4,
+        armIn = 7,
         armOut =6
         ;
     }

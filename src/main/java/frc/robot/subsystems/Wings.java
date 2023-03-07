@@ -9,6 +9,9 @@ public class Wings extends SubsystemBase {
     private boolean wingsOut=false;
     private boolean leftWingOut=false;
     private boolean rightWingOut=false;
+
+    private boolean MAX_ONE_WING_DOWN = false;
+
     public Wings(DoubleSolenoid LeftWing, DoubleSolenoid RightWing){
         wingsOut = false;
         leftWing = LeftWing;

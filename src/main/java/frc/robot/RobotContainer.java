@@ -28,17 +28,6 @@ public class RobotContainer {
     public final static Joystick THRUSTMASTER = new Joystick(Constants.ports.thrusty);
     final DriveTrain DRIVE_TRAIN = new DriveTrain();
 
-    // timers
-    public static int timer;
-    public static int pistonTimer;
-    public static int [] timers;
-/* 
-    //auto chooser
-    private static final String balanceAuto = "Default";
-    private static final String placeAuto = "My Auto";
-    private String autoChosen;
-    private final SendableChooser<String> autoChoice = new SendableChooser<>();
-*/
     final AnalogGyro GYRO = new AnalogGyro(0);
 
     private final DoubleSolenoid LEFT_WING = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ports.leftWingExtend, Constants.ports.leftWingRetract);
@@ -47,8 +36,11 @@ public class RobotContainer {
 
     private final Wings WINGS = new Wings(LEFT_WING, RIGHT_WING);
 
-    private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.arm);
-    private final Arm ARM = new Arm(ARM_TALON);
+    
+    //private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.arm);
+    private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.frontLeft);
+    
+    public final Arm ARM = new Arm(ARM_TALON);
 
     public static boolean wingsInside;
     public static boolean wingFlapButton;
@@ -109,5 +101,15 @@ public class RobotContainer {
         armOutButton = THRUSTMASTER.getRawButton(Constants.buttons.armOut);
         //add more buttons
     }
-    public RobotContainer(){}
+    public RobotContainer(){
+        /* 
+         Command ARM_COMMAND = new armWork(ARM);
+        Command AUTO_BALANCE_COMMAND = new autoBalance(DRIVE_TRAIN, GYRO);
+        Command AUTO_PLACE_COMMAND = new autoPlace(DRIVE_TRAIN, WINGS);
+        Command BALANCE_DRIVE_COMMAND = new balanceDrive(DRIVE_TRAIN,GYRO);
+         Command TELEOP_COMMAND = new driveWithJoystick(DRIVE_TRAIN, WINGS, GYRO);
+        Command PUT_CONE_COMMAND = new putCone(DRIVE_TRAIN, WINGS);
+        Command WING_FLAPPER_COMMAND = new WingFlap(WINGS);
+        */
+    }
 }
