@@ -36,11 +36,12 @@ public class RobotContainer {
 
     private final Wings WINGS = new Wings(LEFT_WING, RIGHT_WING);
 
+    private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.arm);
     
+    public final Arm ARM = new Arm(ARM_TALON,armCone);
+
     //private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.arm);
-    private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.frontLeft);
-    
-    public final Arm ARM = new Arm(ARM_TALON);
+
 
     public static boolean wingsInside;
     public static boolean wingFlapButton;

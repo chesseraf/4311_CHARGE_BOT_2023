@@ -93,9 +93,9 @@ public class Robot extends TimedRobot {
     
   @Override
   public void teleopInit() {
-   /// teleopCommand.schedule();
-    armCommand.schedule();
-    //wingFlapCommand.schedule();
+    teleopCommand.schedule();
+    //armCommand.schedule();
+    wingFlapCommand.schedule();
   }
 
   @Override
