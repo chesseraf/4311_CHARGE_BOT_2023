@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.WingFlap;
-import frc.robot.commands.armWork;
-import frc.robot.commands.autoBalance;
-import frc.robot.commands.autoPlace;
-import frc.robot.commands.balanceDrive;
-import frc.robot.commands.driveWithJoystick;
-import frc.robot.commands.putCone;
+import frc.robot.commands.ArmWork;
+import frc.robot.commands.AutoBalance;
+import frc.robot.commands.AutoPlace;
+import frc.robot.commands.BalanceDrive;
+import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.PutCone;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Wings;
@@ -55,12 +55,12 @@ public class RobotContainer {
     public static double joystickY;
 
    // private final  JoystickButton orangeButton = new JoystickButton(THRUSTMASTER, pistonTimer);
-    private final Command ARM_COMMAND = new armWork(ARM);
-    private final Command AUTO_BALANCE_COMMAND = new autoBalance(DRIVE_TRAIN, GYRO);
-    private final Command AUTO_PLACE_COMMAND = new autoPlace(DRIVE_TRAIN, WINGS);
-    private final Command BALANCE_DRIVE_COMMAND = new balanceDrive(DRIVE_TRAIN,GYRO);
-    private final Command TELEOP_COMMAND = new driveWithJoystick(DRIVE_TRAIN, WINGS, GYRO);
-    private final Command PUT_CONE_COMMAND = new putCone(DRIVE_TRAIN, WINGS);
+    private final Command ARM_COMMAND = new ArmWork(ARM);
+    private final Command AUTO_BALANCE_COMMAND = new AutoBalance(DRIVE_TRAIN, GYRO);
+    private final Command AUTO_PLACE_COMMAND = new AutoPlace(DRIVE_TRAIN, WINGS);
+    private final Command BALANCE_DRIVE_COMMAND = new BalanceDrive(DRIVE_TRAIN,GYRO);
+    private final Command TELEOP_COMMAND = new DriveWithJoystick(DRIVE_TRAIN, WINGS, GYRO);
+    private final Command PUT_CONE_COMMAND = new PutCone(DRIVE_TRAIN, WINGS);
     private final Command WING_FLAPPER_COMMAND = new WingFlap(WINGS);
     //private final CommandBase 
 

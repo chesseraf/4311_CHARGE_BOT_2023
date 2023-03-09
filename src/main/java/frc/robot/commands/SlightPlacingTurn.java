@@ -6,7 +6,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class SlightPlacingTurn extends SequentialCommandGroup{
     public SlightPlacingTurn(DriveTrain driveTrain){
-        CommandScheduler.getInstance().schedule(new driveForTime(null, 0.2, 0, 0.15));
+        CommandScheduler.getInstance().schedule(new DriveForTime(null, 0.2, 0, 0.15));
     }
 
     

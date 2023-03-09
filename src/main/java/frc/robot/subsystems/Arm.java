@@ -6,17 +6,23 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.ArmHighThrow;
+import frc.robot.commands.ArmLowPlace;
+import frc.robot.commands.ArmMidPlace;
 
 public class Arm extends SubsystemBase{
-    private WPI_TalonFX armTalon;
+    public WPI_TalonFX armTalon;
     private DoubleSolenoid holdPieceSol;
     private boolean armIsInside=true;
     private boolean armIsTighten=true;
+    public static boolean armExecutingCommand = false;
 
     public Arm(WPI_TalonFX tal, DoubleSolenoid HoldPiece){
+
         armTalon = tal;
         holdPieceSol = HoldPiece;
         armTalon.configFactoryDefault();
@@ -45,6 +51,7 @@ public class Arm extends SubsystemBase{
         armTalon.configForwardSoftLimitEnable(true);
     }
 
+
     public boolean ArmIsTight(){
         return(armIsTighten);
     }
@@ -52,11 +59,20 @@ public class Arm extends SubsystemBase{
         return(armIsInside);
     }
     public void ReachOut(){
-        
         armTalon.set(Constants.ARM_SPEED);
     }
     public void ReachIn(){
         armTalon.set(-Constants.ARM_SPEED);
+    }
+    public void GoHigh(){
+        CommandScheduler.getInstance().schedule(new ArmHighThrow(this));
+    }
+    public void GoMid(){
+        CommandScheduler.getInstance().schedule(new ArmMidPlace(this));
+    }
+    public void GoLow(){
+        CommandScheduler.getInstance().schedule(new ArmLowPlace(this));
+
     }
     public void Untighten(){
         holdPieceSol.set(DoubleSolenoid.Value.kReverse);
