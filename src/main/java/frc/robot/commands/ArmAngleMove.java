@@ -14,11 +14,13 @@ public class ArmAngleMove extends CommandBase{
   private double currentAngle;
   private double targetAngle;
   private boolean movingOut;
+  private boolean endStop;
   
-  public ArmAngleMove(Arm Arm, double TargetAngle, double Speed) {
+  public ArmAngleMove(Arm Arm, double TargetAngle, double Speed, boolean stopEnd) {
     arm = Arm;
     speed = Speed;
     movingOut = speed>0;
+    endStop = stopEnd;
     
     currentAngle = arm.armTalon.getSelectedSensorPosition();
     targetAngle = TargetAngle;
@@ -41,7 +43,10 @@ public class ArmAngleMove extends CommandBase{
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    arm.armTalon.set(0);
+    if(endStop){
+        arm.armTalon.set(0);
+    }
+    
   }
 
   // Returns true when the command should end.

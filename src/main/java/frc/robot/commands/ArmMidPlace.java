@@ -5,7 +5,7 @@ import frc.robot.subsystems.Arm;
 
 public class ArmMidPlace extends  SequentialCommandGroup{
     public ArmMidPlace(Arm Arm){
-        addCommands(new ArmAngleMove(Arm, -180000, -1)
-        .andThen(new ArmAngleMove(Arm, -240000, -0.8)));
+        addCommands(new ArmAngleMove(Arm, -20000, -0.5,false)
+        .andThen(new ArmAngleMove(Arm, -210000, -1,true)));
     }
 }

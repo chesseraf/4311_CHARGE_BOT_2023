@@ -1,9 +1,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Wings;
 
 public class ArmWork extends CommandBase{
     private Arm arm;
@@ -17,20 +18,16 @@ public class ArmWork extends CommandBase{
     }
     @Override
     public void execute() {
-     //   if(!Arm.armExecutingCommand){
-
+        if(Wings.rightWingOut && Wings.leftWingOut){
             if(RobotContainer.armInButton){
-                System.out.println("moving arm inside");
-                //arm.ReachIn();
-                CommandScheduler.getInstance().schedule(new ArmReturnInside(arm));
-            } else if(RobotContainer.armOutButton){
-                System.out.println("moving are out");
+                Robot.returnArmCommand.schedule();
+            } else if(RobotContainer.lowShootButton){
                 arm.GoLow();
-            } else {
-                //arm.stop();
-            }
-        //}
-        
-        // buttons: tighten, untighten, goInside, 
+            } else if(RobotContainer.midShootButton){
+                arm.GoMid();
+            } else if(RobotContainer.highShootButton){
+                arm.GoHigh();
+            }            
+        }
     }
 }

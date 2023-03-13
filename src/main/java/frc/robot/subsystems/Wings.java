@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Wings extends SubsystemBase {
     private DoubleSolenoid leftWing;
     private DoubleSolenoid rightWing;
-    private boolean wingsOut=false;
-    private boolean leftWingOut=false;
-    private boolean rightWingOut=false;
+    public boolean wingsOut=false;
+    public static boolean leftWingOut=false;
+    public static boolean rightWingOut=false;
 
     public Wings(DoubleSolenoid LeftWing, DoubleSolenoid RightWing){
         wingsOut = false;

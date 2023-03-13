@@ -5,9 +5,8 @@ import frc.robot.subsystems.Arm;
 
 public class ArmHighThrow extends SequentialCommandGroup{
     public ArmHighThrow(Arm Arm){
-        addCommands(new ArmMotorTimeMove(Arm, 1.5, 0.2)
-        .andThen(new ArmMotorTimeMove(Arm, 1.5, 0.15))
+        addCommands(new ArmAngleMove(Arm, -50000, -0.5,false)
+        .andThen(new ArmAngleMove(Arm, -150000, -1,true))
         );
-
     }
 }

@@ -56,12 +56,14 @@ public final class Constants {
         public static final int 
         //liftPiston = 3,
         //lowerPiston = 1,
-        exitBalanceDrive = 5,
-        flapWings = 1,
-        flapRight = 4,
-        flapLeft = 3,
-        armIn = 7,
-        armOut =6
+        EXIT_BALANCE_DRIVE = 5,
+        FLAP_WINGS = 1,
+        FLAP_RIGHT = 4,
+        FLAP_LEFT = 3,
+        ARM_IN = 8,
+        ARM_LOW_SHOOT = 14,
+        ARM_MID_SHOOT = 15,
+        ARM_HIGH_SHOOT = 16
         ;
     }
 }

@@ -11,6 +11,7 @@ import frc.robot.commands.WingFlap;
 import frc.robot.commands.ArmHighThrow;
 import frc.robot.commands.ArmLowPlace;
 import frc.robot.commands.ArmMidPlace;
+import frc.robot.commands.ArmReturnInside;
 import frc.robot.commands.ArmWork;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoPlace;
@@ -42,7 +43,9 @@ public class RobotContainer {
     public static boolean rightWingFlapButton;
     public static boolean leftWingFlapButton;
     
-    public static boolean armOutButton;
+    public static boolean lowShootButton;
+    public static boolean midShootButton;
+    public static boolean highShootButton;
     public static boolean armInButton;
 
     public static double joystickX;
@@ -59,7 +62,12 @@ public class RobotContainer {
     private final Command SHOOT_LOW_GOAL_COMMAND = new ArmLowPlace(ARM);
     private final Command SHOOT_MID_GOAL_COMMAND = new ArmMidPlace(ARM);
     private final Command SHOOT_HIGH_GOAL_COMMAND = new ArmHighThrow(ARM);
+    private final Command RETURN_ARM_COMMAND = new ArmReturnInside(ARM);
 
+    //public Command 
+    public Command GetReturnArmCommand(){
+        return RETURN_ARM_COMMAND;
+    }
     public Command GetLowGoalCommand(){
         return SHOOT_LOW_GOAL_COMMAND;
     }
@@ -102,13 +110,13 @@ public class RobotContainer {
     public void UpdateJoystick(){
         joystickX = THRUSTMASTER.getX();
         joystickY = THRUSTMASTER.getY();
-        wingFlapButton = THRUSTMASTER.getRawButton(Constants.buttons.flapWings);
-        rightWingFlapButton = THRUSTMASTER.getRawButton(Constants.buttons.flapRight);
-        leftWingFlapButton = THRUSTMASTER.getRawButton(Constants.buttons.flapLeft);
-        armInButton = THRUSTMASTER.getRawButton(Constants.buttons.armIn);
-        armOutButton = THRUSTMASTER.getRawButton(Constants.buttons.armOut);
-        //THRUSTMASTER.getRawButtonPressed(0)
-        //add more buttons
+        wingFlapButton = THRUSTMASTER.getRawButton(Constants.buttons.FLAP_WINGS);
+        rightWingFlapButton = THRUSTMASTER.getRawButton(Constants.buttons.FLAP_RIGHT);
+        leftWingFlapButton = THRUSTMASTER.getRawButton(Constants.buttons.FLAP_LEFT);
+        armInButton = THRUSTMASTER.getRawButton(Constants.buttons.ARM_IN);
+        lowShootButton = THRUSTMASTER.getRawButton(Constants.buttons.ARM_LOW_SHOOT);
+        midShootButton = THRUSTMASTER.getRawButton(Constants.buttons.ARM_MID_SHOOT);
+        highShootButton = THRUSTMASTER.getRawButton(Constants.buttons.ARM_HIGH_SHOOT);
     }
     public RobotContainer(){
         /* 

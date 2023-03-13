@@ -12,8 +12,8 @@ public class ArmLowPlace extends SequentialCommandGroup{
         //.andThen(new ArmAngleMove(Arm, -240000, -0.8))
         //addCommands(new ArmAngleMove(Arm, -180000, -1)//mid goal
         //.andThen(new ArmAngleMove(Arm, -240000, -0.8))
-        addCommands(new ArmAngleMove(Arm, -50000, -0.7)
-        .andThen(new ArmAngleMove(Arm, -180000, -1))
+        addCommands(new ArmAngleMove(Arm, -200000, -0.6,true)
+        //.andThen(new ArmAngleMove(Arm, -240000, -0.8))
         );
     }
 }

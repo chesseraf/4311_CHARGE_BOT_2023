@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
   public static Command shootLowCommand;
   public static Command shootMidCommand;
   public static Command shootHighCommand;
+  public static Command returnArmCommand;
   
 
   public static int timer;
@@ -43,11 +44,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     CameraServer.startAutomaticCapture();
     
-
     timer = 0;
     robotContainer = new RobotContainer();
     robotContainer.DRIVE_TRAIN.enterBreak();
 
+    returnArmCommand = robotContainer.GetReturnArmCommand();
     armCommand = robotContainer.GetArmCommand();
     autoBalanceCommand=robotContainer.GetAutoBalanceCommand();
     autoPlaceCommand=robotContainer.GetAutoPlaceCommand();
@@ -57,7 +58,6 @@ public class Robot extends TimedRobot {
     shootLowCommand = robotContainer.GetLowGoalCommand();
     shootMidCommand = robotContainer.GetMidGoalCommand();
     shootHighCommand = robotContainer.GetHighGoalCommand();
-
 
     final double calibratedGyro = robotContainer.GYRO.getAngle();
     CameraServer.startAutomaticCapture();

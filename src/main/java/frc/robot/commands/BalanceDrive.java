@@ -64,7 +64,7 @@ public class BalanceDrive extends CommandBase {
       // Returns true when the command should end.
       @Override
       public boolean isFinished() {
-        if(RobotContainer.THRUSTMASTER.getRawButton(Constants.buttons.exitBalanceDrive)){
+        if(RobotContainer.THRUSTMASTER.getRawButton(Constants.buttons.EXIT_BALANCE_DRIVE)){
             return(true);
         } else {
             return(false);
