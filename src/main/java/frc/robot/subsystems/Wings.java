@@ -3,16 +3,12 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import edu.wpi.first.cameraserver.CameraServer;
-
 public class Wings extends SubsystemBase {
     private DoubleSolenoid leftWing;
     private DoubleSolenoid rightWing;
     private boolean wingsOut=false;
     private boolean leftWingOut=false;
     private boolean rightWingOut=false;
-
-    private boolean MAX_ONE_WING_DOWN = false;
 
     public Wings(DoubleSolenoid LeftWing, DoubleSolenoid RightWing){
         wingsOut = false;
@@ -47,7 +43,7 @@ public class Wings extends SubsystemBase {
         if(rightWingOut){
             RightWingIn();
         } else {
-            RightWingIn();
+            RightWingOut();
         }
     }
 

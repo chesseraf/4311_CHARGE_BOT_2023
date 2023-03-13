@@ -5,6 +5,7 @@ import frc.robot.subsystems.Arm;
 
 public class ArmReturnInside extends SequentialCommandGroup{
     public ArmReturnInside(Arm Arm){
-        addCommands(new ArmMotorTimeMove(Arm,2,-0.25));
+        addCommands(new ArmAngleMove(Arm, 0, 0.5));
+        //addCommands(new ArmMotorTimeMove(Arm,3,0.25));
     }
 }

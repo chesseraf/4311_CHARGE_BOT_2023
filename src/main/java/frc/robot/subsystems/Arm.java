@@ -6,10 +6,10 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.commands.ArmHighThrow;
 import frc.robot.commands.ArmLowPlace;
 import frc.robot.commands.ArmMidPlace;
@@ -22,7 +22,6 @@ public class Arm extends SubsystemBase{
     public static boolean armExecutingCommand = false;
 
     public Arm(WPI_TalonFX tal, DoubleSolenoid HoldPiece){
-
         armTalon = tal;
         holdPieceSol = HoldPiece;
         armTalon.configFactoryDefault();
@@ -43,14 +42,12 @@ public class Arm extends SubsystemBase{
 
         final double startingPositionTalonUnits = 0;
         armTalon.setSelectedSensorPosition(startingPositionTalonUnits);
-
         armTalon.configClosedloopRamp(0.3);
-        armTalon.configForwardSoftLimitThreshold(1000);
-        armTalon.configReverseSoftLimitThreshold(0);
+        armTalon.configForwardSoftLimitThreshold(0);
+        armTalon.configReverseSoftLimitThreshold(-250000);
         armTalon.configReverseSoftLimitEnable(true);
         armTalon.configForwardSoftLimitEnable(true);
     }
-
 
     public boolean ArmIsTight(){
         return(armIsTighten);
@@ -59,19 +56,22 @@ public class Arm extends SubsystemBase{
         return(armIsInside);
     }
     public void ReachOut(){
-        armTalon.set(Constants.ARM_SPEED);
-    }
-    public void ReachIn(){
         armTalon.set(-Constants.ARM_SPEED);
     }
+    public void ReachIn(){
+        armTalon.set(Constants.ARM_SPEED);
+    }
     public void GoHigh(){
-        CommandScheduler.getInstance().schedule(new ArmHighThrow(this));
+        Robot.shootHighCommand.schedule();
+        //CommandScheduler.getInstance().schedule(new ArmHighThrow(this));
     }
     public void GoMid(){
-        CommandScheduler.getInstance().schedule(new ArmMidPlace(this));
+        Robot.shootMidCommand.schedule();
+       // CommandScheduler.getInstance().schedule(new ArmMidPlace(this));
     }
     public void GoLow(){
-        CommandScheduler.getInstance().schedule(new ArmLowPlace(this));
+        Robot.shootLowCommand.schedule();
+        //CommandScheduler.getInstance().schedule(new ArmLowPlace(this));
 
     }
     public void Untighten(){

@@ -5,11 +5,9 @@ import frc.robot.subsystems.Arm;
 
 public class ArmHighThrow extends SequentialCommandGroup{
     public ArmHighThrow(Arm Arm){
-        Arm.armExecutingCommand = true;
         addCommands(new ArmMotorTimeMove(Arm, 1.5, 0.2)
         .andThen(new ArmMotorTimeMove(Arm, 1.5, 0.15))
         );
-        Arm.armExecutingCommand = false;
 
     }
 }

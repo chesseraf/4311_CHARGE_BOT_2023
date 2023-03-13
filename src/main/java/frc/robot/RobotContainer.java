@@ -7,8 +7,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.WingFlap;
+import frc.robot.commands.ArmHighThrow;
+import frc.robot.commands.ArmLowPlace;
+import frc.robot.commands.ArmMidPlace;
 import frc.robot.commands.ArmWork;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoPlace;
@@ -18,11 +20,6 @@ import frc.robot.commands.PutCone;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Wings;
-
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class RobotContainer {
     public final static Joystick THRUSTMASTER = new Joystick(Constants.ports.thrusty);
@@ -39,9 +36,6 @@ public class RobotContainer {
     private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.arm);
     
     public final Arm ARM = new Arm(ARM_TALON,armCone);
-
-    //private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.arm);
-
 
     public static boolean wingsInside;
     public static boolean wingFlapButton;
@@ -62,8 +56,19 @@ public class RobotContainer {
     private final Command TELEOP_COMMAND = new DriveWithJoystick(DRIVE_TRAIN, WINGS, GYRO);
     private final Command PUT_CONE_COMMAND = new PutCone(DRIVE_TRAIN, WINGS);
     private final Command WING_FLAPPER_COMMAND = new WingFlap(WINGS);
-    //private final CommandBase 
+    private final Command SHOOT_LOW_GOAL_COMMAND = new ArmLowPlace(ARM);
+    private final Command SHOOT_MID_GOAL_COMMAND = new ArmMidPlace(ARM);
+    private final Command SHOOT_HIGH_GOAL_COMMAND = new ArmHighThrow(ARM);
 
+    public Command GetLowGoalCommand(){
+        return SHOOT_LOW_GOAL_COMMAND;
+    }
+    public Command GetMidGoalCommand(){
+        return SHOOT_MID_GOAL_COMMAND;
+    }
+    public Command GetHighGoalCommand(){
+        return SHOOT_HIGH_GOAL_COMMAND;
+    }
     public Command GetArmCommand(){
         return ARM_COMMAND;
     }
@@ -90,6 +95,8 @@ public class RobotContainer {
         SmartDashboard.putNumber("gyro angle ", GYRO.getAngle());
         SmartDashboard.putNumber("gyro rate ", GYRO.getRate());
         SmartDashboard.putBoolean("piston extended ", wingsInside);
+
+        SmartDashboard.putNumber("arm position", ARM_TALON.getSelectedSensorPosition());
     }
 
     public void UpdateJoystick(){
@@ -100,6 +107,7 @@ public class RobotContainer {
         leftWingFlapButton = THRUSTMASTER.getRawButton(Constants.buttons.flapLeft);
         armInButton = THRUSTMASTER.getRawButton(Constants.buttons.armIn);
         armOutButton = THRUSTMASTER.getRawButton(Constants.buttons.armOut);
+        //THRUSTMASTER.getRawButtonPressed(0)
         //add more buttons
     }
     public RobotContainer(){

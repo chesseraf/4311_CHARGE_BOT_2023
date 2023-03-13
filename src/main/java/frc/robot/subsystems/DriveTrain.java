@@ -14,10 +14,10 @@ public class DriveTrain extends SubsystemBase{
         backLeftMotor.setInverted(true);
         frontLeftMotor.setInverted(true);
 
-        backLeftMotor.configOpenloopRamp(0.5);
-        backRightMotor.configOpenloopRamp(0.5);
-        frontRightMotor.configOpenloopRamp(0.5);
-        frontLeftMotor.configOpenloopRamp(0.5);
+        backLeftMotor.configOpenloopRamp(0.1);
+        backRightMotor.configOpenloopRamp(0.1);
+        frontRightMotor.configOpenloopRamp(0.1);
+        frontLeftMotor.configOpenloopRamp(0.1);
     }
 
     private final WPI_TalonFX frontLeftMotor = new WPI_TalonFX(Constants.ports.frontLeft);

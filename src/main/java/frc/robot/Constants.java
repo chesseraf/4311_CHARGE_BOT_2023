@@ -49,7 +49,7 @@ public final class Constants {
     public static final double MIN_GYRO_MOVE = 0.05;
     public static final double MIN_BALANCE_MOVE = 0.15;
 
-    public static final double ARM_SPEED = 0.2;
+    public static final double ARM_SPEED = 0.15;
 
     // buttons numbers
     public static class buttons{
