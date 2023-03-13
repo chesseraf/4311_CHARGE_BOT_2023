@@ -6,13 +6,8 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.commands.ArmHighThrow;
-import frc.robot.commands.ArmLowPlace;
-import frc.robot.commands.ArmMidPlace;
 
 public class Arm extends SubsystemBase{
     public WPI_TalonFX armTalon;
@@ -55,11 +50,9 @@ public class Arm extends SubsystemBase{
     public boolean ArmIsInside(){
         return(armIsInside);
     }
-    public void ReachOut(){
-        armTalon.set(-Constants.ARM_SPEED);
-    }
-    public void ReachIn(){
-        armTalon.set(Constants.ARM_SPEED);
+
+    public void GoInside(){
+        Robot.returnArmCommand.schedule();
     }
     public void GoHigh(){
         Robot.shootHighCommand.schedule();

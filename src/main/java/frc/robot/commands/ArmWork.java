@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Wings;
@@ -20,7 +19,7 @@ public class ArmWork extends CommandBase{
     public void execute() {
         if(Wings.rightWingOut && Wings.leftWingOut){
             if(RobotContainer.armInButton){
-                Robot.returnArmCommand.schedule();
+                arm.GoInside();
             } else if(RobotContainer.lowShootButton){
                 arm.GoLow();
             } else if(RobotContainer.midShootButton){
