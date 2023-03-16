@@ -13,7 +13,7 @@ public class WingFlap extends CommandBase{
     
     public WingFlap(Wings Wings){
         wings = Wings;
-        addRequirements(wings);
+        //addRequirements(wings);
     }
     @Override
     public void initialize() {

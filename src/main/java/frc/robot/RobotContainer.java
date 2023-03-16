@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.WingFlap;
+import frc.robot.commands.WingsExtend;
+import frc.robot.commands.WingsRetract;
 import frc.robot.commands.ArmHighThrow;
 import frc.robot.commands.ArmLowPlace;
 import frc.robot.commands.ArmMidPlace;
@@ -30,13 +32,13 @@ public class RobotContainer {
 
     private final DoubleSolenoid LEFT_WING = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ports.leftWingExtend, Constants.ports.leftWingRetract);
     private final DoubleSolenoid RIGHT_WING = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ports.rightWingExtend, Constants.ports.rightWingRetract);
-    private final DoubleSolenoid armCone = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ports.armConeExtend, Constants.ports.armConeRetract);
+    //private final DoubleSolenoid armCone = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.ports.armConeExtend, Constants.ports.armConeRetract);
 
-    private final Wings WINGS = new Wings(LEFT_WING, RIGHT_WING);
+    public final Wings WINGS = new Wings(LEFT_WING, RIGHT_WING);
 
     private final WPI_TalonFX ARM_TALON = new WPI_TalonFX(Constants.ports.arm);
     
-    public final Arm ARM = new Arm(ARM_TALON,armCone);
+    public final Arm ARM = new Arm(ARM_TALON);
 
     public static boolean wingsInside;
     public static boolean wingFlapButton;
@@ -53,18 +55,27 @@ public class RobotContainer {
 
    // private final  JoystickButton orangeButton = new JoystickButton(THRUSTMASTER, pistonTimer);
     private final Command ARM_COMMAND = new ArmWork(ARM);
+
     private final Command AUTO_BALANCE_COMMAND = new AutoBalance(DRIVE_TRAIN, GYRO);
-    private final Command AUTO_PLACE_COMMAND = new AutoPlace(DRIVE_TRAIN, WINGS);
+    private final Command AUTO_PLACE_COMMAND = new AutoPlace(DRIVE_TRAIN, WINGS, ARM);
     private final Command BALANCE_DRIVE_COMMAND = new BalanceDrive(DRIVE_TRAIN,GYRO);
     private final Command TELEOP_COMMAND = new DriveWithJoystick(DRIVE_TRAIN, WINGS, GYRO);
     private final Command PUT_CONE_COMMAND = new PutCone(DRIVE_TRAIN, WINGS);
     private final Command WING_FLAPPER_COMMAND = new WingFlap(WINGS);
     private final Command SHOOT_LOW_GOAL_COMMAND = new ArmLowPlace(ARM);
     private final Command SHOOT_MID_GOAL_COMMAND = new ArmMidPlace(ARM);
-    private final Command SHOOT_HIGH_GOAL_COMMAND = new ArmHighThrow(ARM);
+    private final Command SHOOT_HIGH_GOAL_COMMAND = new ArmHighThrow(ARM,WINGS);
     private final Command RETURN_ARM_COMMAND = new ArmReturnInside(ARM);
+    private final Command LOWER_WINGS_COMMAND = new WingsRetract(WINGS);
+    private final Command LIFT_WINGS_COMMAND = new WingsExtend(WINGS);
 
-    //public Command 
+    public Command GetLowerWingCommand(){
+        return LOWER_WINGS_COMMAND;
+    }
+    public Command GetRaiseWingCommand() {
+        return LIFT_WINGS_COMMAND;
+    }
+
     public Command GetReturnArmCommand(){
         return RETURN_ARM_COMMAND;
     }

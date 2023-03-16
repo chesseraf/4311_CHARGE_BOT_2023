@@ -16,6 +16,7 @@ public class Wings extends SubsystemBase {
         rightWing = RightWing;
     }
     public void LeftWingIn(){
+
         leftWing.set(DoubleSolenoid.Value.kForward);
         leftWingOut=false;
     }

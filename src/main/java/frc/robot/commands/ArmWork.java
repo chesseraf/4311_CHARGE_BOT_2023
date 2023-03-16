@@ -26,7 +26,11 @@ public class ArmWork extends CommandBase{
                 arm.GoMid();
             } else if(RobotContainer.highShootButton){
                 arm.GoHigh();
-            }            
+            } 
+            /*else if(RobotContainer.armStopButton){
+                arm.stop();
+            }      
+            */     
         }
     }
 }

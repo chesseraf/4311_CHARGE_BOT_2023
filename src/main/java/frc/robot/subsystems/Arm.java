@@ -5,20 +5,16 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 public class Arm extends SubsystemBase{
     public WPI_TalonFX armTalon;
-    private DoubleSolenoid holdPieceSol;
-    private boolean armIsInside=true;
-    private boolean armIsTighten=true;
-    public static boolean armExecutingCommand = false;
 
-    public Arm(WPI_TalonFX tal, DoubleSolenoid HoldPiece){
+    //public static boolean armExecutingCommand = false;
+
+    public Arm(WPI_TalonFX tal){
         armTalon = tal;
-        holdPieceSol = HoldPiece;
         armTalon.configFactoryDefault();
 
         armTalon.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
@@ -44,13 +40,6 @@ public class Arm extends SubsystemBase{
         armTalon.configForwardSoftLimitEnable(true);
     }
 
-    public boolean ArmIsTight(){
-        return(armIsTighten);
-    }
-    public boolean ArmIsInside(){
-        return(armIsInside);
-    }
-
     public void GoInside(){
         Robot.returnArmCommand.schedule();
     }
@@ -66,14 +55,6 @@ public class Arm extends SubsystemBase{
         Robot.shootLowCommand.schedule();
         //CommandScheduler.getInstance().schedule(new ArmLowPlace(this));
 
-    }
-    public void Untighten(){
-        holdPieceSol.set(DoubleSolenoid.Value.kReverse);
-        armIsTighten=false;
-    }
-    public void Tighten(){
-        holdPieceSol.set(DoubleSolenoid.Value.kForward);
-        armIsTighten = true;
     }
 
     public void stop(){
