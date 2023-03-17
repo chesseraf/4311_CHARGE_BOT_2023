@@ -9,6 +9,7 @@ public class ArmLowPlace extends SequentialCommandGroup{
     public ArmLowPlace(Arm Arm, Wings wing){
         addRequirements(Arm);
         addRequirements(wing);
+        
             addCommands(
             new WingsExtend(wing)
             .andThen(new ArmAngleSpeed(Arm, -50000, -0.4,-0.4,true, wing))
