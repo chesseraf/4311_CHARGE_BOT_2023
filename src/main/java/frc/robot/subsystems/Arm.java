@@ -10,6 +10,7 @@ import frc.robot.Robot;
 
 public class Arm extends SubsystemBase{
     public WPI_TalonFX armTalon;
+    public static boolean armMoving=false;
 
     //public static boolean armExecutingCommand = false;
 
@@ -35,7 +36,7 @@ public class Arm extends SubsystemBase{
         armTalon.setSelectedSensorPosition(startingPositionTalonUnits);
         armTalon.configClosedloopRamp(0.3);
         armTalon.configForwardSoftLimitThreshold(0);
-        armTalon.configReverseSoftLimitThreshold(-250000);
+        armTalon.configReverseSoftLimitThreshold(-170000);
         armTalon.configReverseSoftLimitEnable(true);
         armTalon.configForwardSoftLimitEnable(true);
     }

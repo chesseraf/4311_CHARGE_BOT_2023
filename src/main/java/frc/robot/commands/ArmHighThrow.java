@@ -9,15 +9,14 @@ public class ArmHighThrow extends SequentialCommandGroup{
     public ArmHighThrow(Arm Arm, Wings wing){
         addRequirements(Arm);
         addRequirements(wing);
-       
             addCommands(
-            new WingsRetract(wing)
-            .andThen(new ArmAngleSpeed(Arm, -70000, -0.8,-0.7,false))
-            .andThen(new ArmAngleSpeed(Arm, -150000, -1,-0.8,true))
-            .andThen(new WaitCommand(0.2))
-            .andThen(new ArmReturnInside(Arm))
-            .andThen(new WaitCommand(3))
-            .andThen(new WingsRetract(wing))
+            new WingsExtend(wing)
+            .andThen(new ArmAngleSpeed(Arm, -40000, -0.9,-0.65,false, wing))
+            .andThen(new ArmAngleSpeed(Arm, -80000, -0.91,-0.9,true, wing))
+            .andThen(new WaitCommand(0.3))
+            .andThen(new ArmReturnInside(Arm, wing))
+           // .andThen(new WaitCommand(3))
+            //.andThen(new WingsRetract(wing))
             );
         
     }

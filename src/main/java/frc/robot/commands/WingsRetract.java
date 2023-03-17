@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Wings;
 
 public class WingsRetract extends CommandBase{
@@ -12,7 +13,10 @@ public class WingsRetract extends CommandBase{
     }
     @Override
     public void initialize() {
-        wing.WingsIn();
+        if(!Arm.armMoving){
+            wing.WingsIn();
+        }
+        
     }
     @Override
     public boolean isFinished(){

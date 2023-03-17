@@ -1,19 +1,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Wings;
 
 public class ArmLowPlace extends SequentialCommandGroup{
-    public ArmLowPlace(Arm Arm){
-        /*addCommands(new ArmMotorTimeMove(Arm, 1.5, -0.2)
-        .andThen(new ArmMotorTimeMove(Arm, 1.5, -0.15))
-        );*/
-       // addCommands(new ArmAngleMove(Arm, -130000, -1) high shot pottentially, ends half way
-        //.andThen(new ArmAngleMove(Arm, -240000, -0.8))
-        //addCommands(new ArmAngleMove(Arm, -180000, -1)//mid goal
-        //.andThen(new ArmAngleMove(Arm, -240000, -0.8))
-        addCommands(new ArmAngleMove(Arm, -200000, -0.6,true)
-        //.andThen(new ArmAngleMove(Arm, -240000, -0.8))
-        );
+    public ArmLowPlace(Arm Arm, Wings wing){
+        addRequirements(Arm);
+        addRequirements(wing);
+            addCommands(
+            new WingsExtend(wing)
+            .andThen(new ArmAngleSpeed(Arm, -50000, -0.4,-0.4,true, wing))
+            //.andThen(new ArmAngleSpeed(Arm, -80000, -1,-0.8,true, wing))
+            .andThen(new WaitCommand(0.3))
+            .andThen(new ArmReturnInside(Arm,wing))
+            //.andThen(new WaitCommand(3))
+            //.andThen(new WingsRetract(wing))
+            );   
     }
 }

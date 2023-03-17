@@ -33,7 +33,6 @@ public class Robot extends TimedRobot {
   public static Command wingsLowerCommand;
   public static Command wingsRaiseCommand;
   
-
   public static int timer;
 
   //auto chooser

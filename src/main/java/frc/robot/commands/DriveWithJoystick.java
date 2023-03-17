@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Wings;
 
 
 public class DriveWithJoystick extends CommandBase{
@@ -18,7 +17,7 @@ public class DriveWithJoystick extends CommandBase{
   private double speed;
   private double turnRate;
 
-  public DriveWithJoystick(DriveTrain DriveTrain, Wings wings, Gyro gyro) {
+  public DriveWithJoystick(DriveTrain DriveTrain,  Gyro gyro) {
     driveTrain = DriveTrain;
     addRequirements(DriveTrain);
   }

@@ -59,13 +59,13 @@ public class RobotContainer {
     private final Command AUTO_BALANCE_COMMAND = new AutoBalance(DRIVE_TRAIN, GYRO);
     private final Command AUTO_PLACE_COMMAND = new AutoPlace(DRIVE_TRAIN, WINGS, ARM);
     private final Command BALANCE_DRIVE_COMMAND = new BalanceDrive(DRIVE_TRAIN,GYRO);
-    private final Command TELEOP_COMMAND = new DriveWithJoystick(DRIVE_TRAIN, WINGS, GYRO);
+    private final Command TELEOP_COMMAND = new DriveWithJoystick(DRIVE_TRAIN, GYRO);
     private final Command PUT_CONE_COMMAND = new PutCone(DRIVE_TRAIN, WINGS);
     private final Command WING_FLAPPER_COMMAND = new WingFlap(WINGS);
-    private final Command SHOOT_LOW_GOAL_COMMAND = new ArmLowPlace(ARM);
-    private final Command SHOOT_MID_GOAL_COMMAND = new ArmMidPlace(ARM);
-    private final Command SHOOT_HIGH_GOAL_COMMAND = new ArmHighThrow(ARM,WINGS);
-    private final Command RETURN_ARM_COMMAND = new ArmReturnInside(ARM);
+    private final Command SHOOT_LOW_GOAL_COMMAND = new ArmLowPlace(ARM, WINGS);
+    private final Command SHOOT_MID_GOAL_COMMAND = new ArmMidPlace(ARM, WINGS);
+    private final Command SHOOT_HIGH_GOAL_COMMAND = new ArmHighThrow(ARM, WINGS);
+    private final Command RETURN_ARM_COMMAND = new ArmReturnInside(ARM, WINGS);
     private final Command LOWER_WINGS_COMMAND = new WingsRetract(WINGS);
     private final Command LIFT_WINGS_COMMAND = new WingsExtend(WINGS);
 
@@ -75,7 +75,6 @@ public class RobotContainer {
     public Command GetRaiseWingCommand() {
         return LIFT_WINGS_COMMAND;
     }
-
     public Command GetReturnArmCommand(){
         return RETURN_ARM_COMMAND;
     }
@@ -114,7 +113,6 @@ public class RobotContainer {
         SmartDashboard.putNumber("gyro angle ", GYRO.getAngle());
         SmartDashboard.putNumber("gyro rate ", GYRO.getRate());
         SmartDashboard.putBoolean("piston extended ", wingsInside);
-
         SmartDashboard.putNumber("arm position", ARM_TALON.getSelectedSensorPosition());
     }
 
