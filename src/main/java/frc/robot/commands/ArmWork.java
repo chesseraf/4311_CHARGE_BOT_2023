@@ -13,7 +13,7 @@ public class ArmWork extends CommandBase{
     }
     @Override
     public void initialize() {
-
+        Arm.armMoving = false;
     }
     @Override
     public void execute() {

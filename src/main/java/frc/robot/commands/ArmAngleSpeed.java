@@ -20,6 +20,7 @@ public class ArmAngleSpeed extends CommandBase{
   private boolean endStop;
   private double fracDone;
   private boolean IMEADIATE_END;
+  private boolean speedZeroBool;
   
   public ArmAngleSpeed(Arm Arm, double TargetAngle, double SpeedInit,double SpeedFinal, boolean stopEnd, Wings wing) {
     arm = Arm;
@@ -29,6 +30,7 @@ public class ArmAngleSpeed extends CommandBase{
     endStop = stopEnd;
     fracDone=0;
     IMEADIATE_END =false;
+    speedZeroBool = (SpeedInit==0 && SpeedFinal==0);
     
     currentAngle = arm.armTalon.getSelectedSensorPosition();
     targetAngle = TargetAngle;
@@ -64,13 +66,14 @@ public class ArmAngleSpeed extends CommandBase{
   public void end(boolean interrupted) {
     System.out.println("ArmAngleSpeed.execute(63)");
 
+    if(speedZeroBool){
+      arm.armTalon.set(0);
+    }
     if(endStop){
       System.out.println("ArmAngleSpeed.execute(66)");
 
         arm.armTalon.set(0);
         Arm.armMoving = false;
-        
-        
     }
   }
 
@@ -79,6 +82,9 @@ public class ArmAngleSpeed extends CommandBase{
   public boolean isFinished() {
     if(IMEADIATE_END){
       arm.armTalon.set(0);
+      return true;
+    }
+    if(speedZeroBool){
       return true;
     }
     if(movingOut){
@@ -94,8 +100,5 @@ public class ArmAngleSpeed extends CommandBase{
             return false;
           }
     }
-    
   }
-
-    
 }

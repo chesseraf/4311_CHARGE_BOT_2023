@@ -54,8 +54,10 @@ public class WingFlap extends CommandBase{
             flappingRight=false;
         }
     }
+
     @Override 
     public boolean isFinished(){
         return false;
     }    
+
 }

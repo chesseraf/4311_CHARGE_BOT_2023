@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.interfaces.Gyro;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -17,7 +18,7 @@ public class DriveWithJoystick extends CommandBase{
   private double speed;
   private double turnRate;
 
-  public DriveWithJoystick(DriveTrain DriveTrain,  Gyro gyro) {
+  public DriveWithJoystick(DriveTrain DriveTrain,  AHRS gyro) {
     driveTrain = DriveTrain;
     addRequirements(DriveTrain);
   }

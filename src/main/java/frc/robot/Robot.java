@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
   private static final String placeAuto = "My Auto";
   private String autoChosen;
   private final SendableChooser<String> autoChoice = new SendableChooser<>();
+  public static  double calibratedGyro;
 
   @Override
   public void robotInit() {
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
     timer = 0;
     robotContainer = new RobotContainer();
     robotContainer.DRIVE_TRAIN.enterBreak();
+    //robotContainer.GYRO.calibrate();
 
     returnArmCommand = robotContainer.GetReturnArmCommand();
     armCommand = robotContainer.GetArmCommand();
@@ -62,7 +64,8 @@ public class Robot extends TimedRobot {
     wingsLowerCommand = robotContainer.GetLowerWingCommand();
     wingsRaiseCommand = robotContainer.GetRaiseWingCommand();
 
-    final double calibratedGyro = robotContainer.GYRO.getAngle();
+    calibratedGyro = robotContainer.GYRO.getRoll();
+    
     CameraServer.startAutomaticCapture();
 
     autoChoice.setDefaultOption("balance", balanceAuto);
@@ -119,6 +122,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     robotContainer.DRIVE_TRAIN.exitBreak();
+    
+
   }
 
   @Override
