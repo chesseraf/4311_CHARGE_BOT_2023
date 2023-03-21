@@ -7,38 +7,39 @@ import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
 
 public class BalanceDrive extends CommandBase {
-  DriveTrain driveTrain;
-  AHRS gyro;
-  boolean ForwardPositiveSpeed;
-  boolean GyroValPositive;
-  boolean StartedGoingUp = false;
-  boolean SlowDownBool = false;
-  boolean end = false;
-
-  //CONSTANTS
+  //CONSTANTS   angles are in degrees, *AngleForStartedGoingUp > AngleForSlowDown
   double AngleForStartedGoingUp = 20;
   double AngleForStop = 8;
   double InitSpeed = 0.6;
   double AngleForSlowDown = 15;
   double SlowSpeed = 0.25;
   double StartClimbSpeed  = 0.6;
+
+  // variables
+  DriveTrain driveTrain;
+  AHRS gyro;
+
   double CurrentSpeed;
   double roll;
   double timer;
   double targTime;
 
-    public BalanceDrive(DriveTrain DriveTrain, AHRS Gyro, boolean WingsAreInFront, double MaxSeconds) {
-        StartedGoingUp = false;
-        end = false;
-        SlowDownBool = false;
-        targTime = 50*MaxSeconds;
+  boolean ForwardPositiveSpeed;
+  boolean GyroValPositive;
+  boolean StartedGoingUp;
+  boolean SlowDownBool;
+  boolean end;
 
-        gyro = Gyro;
-        ForwardPositiveSpeed = !WingsAreInFront;
-        GyroValPositive = WingsAreInFront;
-        driveTrain = DriveTrain;
-        addRequirements(driveTrain);
-      }
+    public BalanceDrive(DriveTrain DriveTrain, AHRS Gyro, boolean WingsAreInFront, double MaxSeconds) {
+      gyro = Gyro;
+      driveTrain = DriveTrain;
+
+      targTime = 50*MaxSeconds;
+      ForwardPositiveSpeed = !WingsAreInFront;
+      GyroValPositive = WingsAreInFront;
+      
+      addRequirements(driveTrain);
+    }
     
       // Called when the command is initially scheduled.
       @Override
