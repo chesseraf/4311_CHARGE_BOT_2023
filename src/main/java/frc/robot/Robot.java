@@ -23,7 +23,6 @@ public class Robot extends TimedRobot {
   private Command armCommand;
   private Command autoBalanceCommand;
   private Command autoPlaceCommand;
-  private Command balanceDriveCommand;
   private Command teleopCommand;
   private Command wingFlapCommand;
   public static Command shootLowCommand;
@@ -55,7 +54,6 @@ public class Robot extends TimedRobot {
     armCommand = robotContainer.GetArmCommand();
     autoBalanceCommand=robotContainer.GetAutoBalanceCommand();
     autoPlaceCommand=robotContainer.GetAutoPlaceCommand();
-    balanceDriveCommand=robotContainer.GetBalanceDriveCommand();
     teleopCommand=robotContainer.GetTeleopCommand();
     wingFlapCommand=robotContainer.GetWingFlapCommand();
     shootLowCommand = robotContainer.GetLowGoalCommand();

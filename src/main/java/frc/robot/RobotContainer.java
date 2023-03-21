@@ -17,7 +17,6 @@ import frc.robot.commands.ArmReturnInside;
 import frc.robot.commands.ArmWork;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.AutoPlace;
-import frc.robot.commands.BalanceDrive;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.PutCone;
 import frc.robot.subsystems.Arm;
@@ -59,7 +58,6 @@ public class RobotContainer {
 
     private final Command AUTO_BALANCE_COMMAND = new AutoBalance(DRIVE_TRAIN, WINGS, ARM, GYRO);
     private final Command AUTO_PLACE_COMMAND = new AutoPlace(DRIVE_TRAIN, WINGS, ARM);
-    private final Command BALANCE_DRIVE_COMMAND = new BalanceDrive(DRIVE_TRAIN,GYRO, true);
     private final Command TELEOP_COMMAND = new DriveWithJoystick(DRIVE_TRAIN, GYRO);
     private final Command PUT_CONE_COMMAND = new PutCone(DRIVE_TRAIN, WINGS);
     private final Command WING_FLAPPER_COMMAND = new WingFlap(WINGS);
@@ -97,9 +95,7 @@ public class RobotContainer {
     public Command GetAutoPlaceCommand(){
         return AUTO_PLACE_COMMAND;
     }
-    public Command GetBalanceDriveCommand(){
-        return BALANCE_DRIVE_COMMAND;
-    }
+
     public Command GetTeleopCommand(){
         return TELEOP_COMMAND;
     }

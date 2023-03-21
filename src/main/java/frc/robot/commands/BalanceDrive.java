@@ -2,51 +2,40 @@ package frc.robot.commands;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
 public class BalanceDrive extends CommandBase {
   DriveTrain driveTrain;
   AHRS gyro;
   boolean ForwardPositiveSpeed;
+  boolean GyroValPositive;
   boolean StartedGoingUp = false;
   boolean SlowDownBool = false;
   boolean end = false;
+
+  //CONSTANTS
   double AngleForStartedGoingUp = 20;
   double AngleForStop = 8;
   double InitSpeed = 0.6;
   double AngleForSlowDown = 15;
   double SlowSpeed = 0.25;
   double StartClimbSpeed  = 0.6;
-  /*
-   * update bools
-   * if roll>angleforstartgoingup --> startgoingup = true
-   * if (startgoingup AND roll<angleforslowdown) --> slowdownbool = true
-   * if (slowdownBool AND roll<stopAngle) --> end = true
-   * plan
-   * if !startedgoingup set initspeed
-   * if !slowingdownbool set startclimbspeed
-   * if !angleforstop set slowspeed
-   * if end set 0, stops
-   * 
-   * then if !forwardPositive --> speed = -speed
-   */
-
   double CurrentSpeed;
   double roll;
+  double timer;
+  double targTime;
 
-
-    public BalanceDrive(DriveTrain DriveTrain, AHRS Gyro, boolean WingsAreInFront) {
+    public BalanceDrive(DriveTrain DriveTrain, AHRS Gyro, boolean WingsAreInFront, double MaxSeconds) {
         StartedGoingUp = false;
         end = false;
-         SlowDownBool = false;
+        SlowDownBool = false;
+        targTime = 50*MaxSeconds;
 
         gyro = Gyro;
         ForwardPositiveSpeed = !WingsAreInFront;
+        GyroValPositive = WingsAreInFront;
         driveTrain = DriveTrain;
         addRequirements(driveTrain);
       }
@@ -54,29 +43,21 @@ public class BalanceDrive extends CommandBase {
       // Called when the command is initially scheduled.
       @Override
       public void initialize() {
-        Robot.timer = 0;
-        for (int i = 0; i < 8; i++) {
-          System.out.println("BalanceDrive.initialize()");
-        }
-        
         StartedGoingUp = false;
         end = false;
-         SlowDownBool = false;
-
+        SlowDownBool = false;
+        timer=0;
       }
     
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
-        roll = gyro.getRoll();
-        /*if(!ForwardPositiveSpeed){
-          roll = -roll;
-        }*/
   /*
    * update bools
    * if roll>angleforstartgoingup --> startgoingup = true
    * if (startgoingup AND roll<angleforslowdown) --> slowdownbool = true
    * if (slowdownBool AND roll<stopAngle) --> end = true
+   * 
    * plan
    * if !startedgoingup set initspeed
    * if !slowingdownbool set startclimbspeed
@@ -85,6 +66,11 @@ public class BalanceDrive extends CommandBase {
    * 
    * then if !forwardPositive --> speed = -speed
    */
+        roll = gyro.getRoll()-Robot.calibratedGyro;
+        if(!GyroValPositive){
+          roll = -roll;
+        }
+        timer++;  
         
         if(roll>AngleForStartedGoingUp){
           StartedGoingUp = true;
@@ -97,17 +83,14 @@ public class BalanceDrive extends CommandBase {
         }
         if(!StartedGoingUp){
           CurrentSpeed = InitSpeed;
-        } else if(roll<AngleForSlowDown&&!SlowDownBool){
+        } else if(!SlowDownBool){
           CurrentSpeed = StartClimbSpeed;
-        } else if(roll>AngleForStop&&SlowDownBool){
+        } else if(!end){
           CurrentSpeed = SlowSpeed;
-        } else if(roll<AngleForStop&&SlowDownBool){
-          CurrentSpeed = 0;
-        } else if(end){
+        } else {
           CurrentSpeed = 0;
         }
 
-        
         if(!ForwardPositiveSpeed){
           CurrentSpeed = -CurrentSpeed;
         }
@@ -126,7 +109,7 @@ public class BalanceDrive extends CommandBase {
       @Override
       public boolean isFinished() {
         //return false;
-        if(Robot.timer>5000){
+        if(timer>targTime){
           System.out.println("ABalanceDrive.isFinished()");
           return true;
 

@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import com.kauailabs.navx.frc.AHRS;
 
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Wings;
@@ -29,7 +28,7 @@ public class AutoBalance extends SequentialCommandGroup{
           .andThen(new WaitCommand(0.4))
           .andThen(new WingsRetract(wings))
           //.andThen(new DriveForTime(driveTrain,2, -0.5, 0))
-          .andThen(new BalanceDrive(driveTrain, gyro, true))
-       );
+          .andThen(new BalanceDrive(driveTrain, gyro, true, (15-Robot.timer/50)))
+          );
       }
 }
