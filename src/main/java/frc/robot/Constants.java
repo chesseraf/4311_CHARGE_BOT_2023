@@ -29,11 +29,11 @@ public final class Constants {
 
         commpressor = 0,
 
-        leftWingRetract = 2,
-        leftWingExtend = 3,
+        leftWingRetract = 3,
+        leftWingExtend = 2,
 
-        rightWingRetract = 7,
-        rightWingExtend = 6,
+        rightWingRetract = 4,
+        rightWingExtend = 5,
 
         armConeRetract = 1,
         armConeExtend = 0,
