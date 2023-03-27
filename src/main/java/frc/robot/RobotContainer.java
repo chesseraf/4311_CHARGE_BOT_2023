@@ -107,7 +107,7 @@ public class RobotContainer {
     }
 
     public void SmartBoardUpdate(){
-        SmartDashboard.putNumber("roll", GYRO.getRoll());
+        SmartDashboard.putNumber("roll", GYRO.getRoll()-Robot.calibratedGyro);
 
         SmartDashboard.putBoolean("piston extended ", wingsInside);
         SmartDashboard.putNumber("arm position", ARM_TALON.getSelectedSensorPosition());

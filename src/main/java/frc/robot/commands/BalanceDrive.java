@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.subsystems.DriveTrain;
@@ -10,10 +12,10 @@ public class BalanceDrive extends CommandBase {
   //CONSTANTS   angles are in degrees, *AngleForStartedGoingUp > AngleForSlowDown
   double AngleForStartedGoingUp = 20;
   double AngleForStop = 8;
-  double InitSpeed = 0.6;
+  double InitSpeed = 0.4;
   double AngleForSlowDown = 15;
   double SlowSpeed = 0.25;
-  double StartClimbSpeed  = 0.6;
+  double StartClimbSpeed  = 0.4;
 
   // variables
   DriveTrain driveTrain;
@@ -29,6 +31,10 @@ public class BalanceDrive extends CommandBase {
   boolean StartedGoingUp;
   boolean SlowDownBool;
   boolean end;
+  PIDController controller = new PIDController(0.024, 0.00, 0.00);
+
+  // new
+  private static final double multiplier = 0.0275;
 
     public BalanceDrive(DriveTrain DriveTrain, AHRS Gyro, boolean WingsAreInFront, double MaxSeconds) {
       gyro = Gyro;
@@ -53,6 +59,7 @@ public class BalanceDrive extends CommandBase {
       // Called every time the scheduler runs while the command is scheduled.
       @Override
       public void execute() {
+       // if(timer/50*2>Max)
   /*
    * update bools
    * if roll>angleforstartgoingup --> startgoingup = true
@@ -67,12 +74,15 @@ public class BalanceDrive extends CommandBase {
    * 
    * then if !forwardPositive --> speed = -speed
    */
-        roll = gyro.getRoll()-Robot.calibratedGyro;
-        if(!GyroValPositive){
-          roll = -roll;
-        }
+        roll = -(gyro.getRoll()-Robot.calibratedGyro);
+        // if(!GyroValPositive){
+        //   roll = -roll;
+        // }
+
+
         timer++;  
-        
+
+        /* Start of original code 
         if(roll>AngleForStartedGoingUp){
           StartedGoingUp = true;
         }
@@ -92,10 +102,28 @@ public class BalanceDrive extends CommandBase {
           CurrentSpeed = 0;
         }
 
-        if(!ForwardPositiveSpeed){
-          CurrentSpeed = -CurrentSpeed;
-        }
+        // if(!ForwardPositiveSpeed){
+        //   CurrentSpeed = -CurrentSpeed;
+        // }  end of original code
+        */
+        controller.setSetpoint(0);
+        // if(Math.abs(roll)>3){
+          //CurrentSpeed = roll* multiplier;
+          CurrentSpeed = controller.calculate(roll);
+          SmartDashboard.putNumber("speed", CurrentSpeed);
+        // } else {
+        //   CurrentSpeed = 0;
+        // }
+          if(CurrentSpeed>0.1 && CurrentSpeed<0.2){
+            CurrentSpeed = CurrentSpeed*CurrentSpeed*6;
+          }
+          if(CurrentSpeed<-0.1 && CurrentSpeed>-0.2){
+            CurrentSpeed = -CurrentSpeed*CurrentSpeed*6;
+          }
+          
+
         driveTrain.turnDrive(CurrentSpeed, 0);
+
       }
     
 
@@ -109,7 +137,8 @@ public class BalanceDrive extends CommandBase {
       // Returns true when the command should end.
       @Override
       public boolean isFinished() {
-        //return false;
+        return false;
+        /* 
         if(timer>targTime){
           System.out.println("ABalanceDrive.isFinished()");
           return true;
@@ -117,6 +146,7 @@ public class BalanceDrive extends CommandBase {
         } else {
           return false;
         }
+        */
         /*if(end){
           System.out.println("BBalanceDrive.isFinished()");
 

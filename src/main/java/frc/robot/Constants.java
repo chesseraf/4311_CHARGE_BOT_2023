@@ -44,7 +44,7 @@ public final class Constants {
    
     //important values
     public static final double MIN_POWER = 0.15;
-    public static final double MIN_TURN = 0.15;
+    public static final double MIN_TURN = 0.1;
 
     public static final double MIN_GYRO_MOVE = 0.05;
     public static final double MIN_BALANCE_MOVE = 0.15;

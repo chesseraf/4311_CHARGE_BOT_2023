@@ -23,7 +23,7 @@ public class AutoPlace extends SequentialCommandGroup{
           .andThen(new ArmReturnInside(arm, wings))
           .andThen(new WaitCommand(0.4))
           .andThen(new WingsRetract(wings))
-          .andThen(new DriveForTime(driveTrain,3.25, -0.5, 0))
+          .andThen(new DriveForTime(driveTrain,3.75, -0.5, 0))
        );
       }     
 }

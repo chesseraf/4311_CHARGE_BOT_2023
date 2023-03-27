@@ -32,11 +32,13 @@ public class AutoBalance extends SequentialCommandGroup{
       .andThen(new BalanceDrive(driveTrain, gyro, true, (15-Robot.timer/50)))
        */
 
-       /* 
+       /* */
        // MOBILITY 
       .andThen(new DriveForTime(driveTrain,4, -0.5, 0))
+      .andThen(new DriveForTime(driveTrain, 2.7, 0.5, 0))
       .andThen(new BalanceDrive(driveTrain, gyro, false, (15-Robot.timer/50)))
-       */          
+                 
+      //potentially add small drive back
     );
   }
 }
